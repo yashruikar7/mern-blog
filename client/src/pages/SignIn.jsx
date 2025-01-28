@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   signInStart,
-  signInSuccess,
+  signInSuccess, 
   signInFailure,
 } from '../redux/user/userSlice';
 import OAuth from '../components/OAuth';
@@ -34,7 +34,7 @@ export default function SignIn() {
         dispatch(signInFailure(data.message));
       }
 
-      if (res.ok) {
+      if (res.ok) { 
         dispatch(signInSuccess(data));
         navigate('/');
       }
@@ -49,7 +49,7 @@ export default function SignIn() {
         <div className='flex-1'>
           <Link to='/' className='font-bold dark:text-white text-4xl'>
             <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
-              Sahand's
+              Yash's
             </span>
             Blog
           </Link>

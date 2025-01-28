@@ -32,18 +32,18 @@ export default function DashProfile() {
   const [imageFileUploading, setImageFileUploading] = useState(false);
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);                //these state is used when we click on delete account
   const [formData, setFormData] = useState({});
-  const filePickerRef = useRef();
+  const filePickerRef = useRef();                    //to get refrence of new image  
   const dispatch = useDispatch();
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files[0];                          //here 0 is written because there is only one image file
     if (file) {
       setImageFile(file);
-      setImageFileUrl(URL.createObjectURL(file));
+      setImageFileUrl(URL.createObjectURL(file));               //here we are creating image url and storing it in setImageFileUrl state
     }
   };
-  useEffect(() => {
+  useEffect(() => {                                          //whenever we upload new image we need to run uplodimage func
     if (imageFile) {
       uploadImage();
     }
@@ -62,10 +62,17 @@ export default function DashProfile() {
     // }
     setImageFileUploading(true);
     setImageFileUploadError(null);
-    const storage = getStorage(app);
-    const fileName = new Date().getTime() + imageFile.name;
-    const storageRef = ref(storage, fileName);
-    const uploadTask = uploadBytesResumable(storageRef, imageFile);
+    const storage = getStorage(app);  //we are getting storage from app which is made in firebase .js
+
+    const fileName = new Date().getTime() + imageFile.name;     //as user can put same image multipule time and in firebase we need to store image with unique name
+
+    const storageRef = ref(storage, fileName);       //storing in firebase.Getting refrence for filename in firebase
+
+    const uploadTask = uploadBytesResumable(storageRef, imageFile);       // This line starts the image upload process using the uploadBytesResumable function. It returns an upload task that allows monitoring of the upload progress.
+
+//     uploadTask.on('state_changed', ...):
+// This method listens for state changes during the upload process. It takes three callbacks: one for progress updates, one for handling errors, and one for successful completion.
+
     uploadTask.on(
       'state_changed',
       (snapshot) => {
@@ -90,6 +97,7 @@ export default function DashProfile() {
           setImageFileUploading(false);
         });
       }
+      // This callback runs when the upload is successfully completed. It retrieves the download URL of the uploaded image and updates the state with the URL. It also updates the form data with the image's download URL and sets the upload state to false.
     );
   };
 
@@ -179,6 +187,7 @@ export default function DashProfile() {
           className='relative w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full'
           onClick={() => filePickerRef.current.click()}
         >
+        {/* when we click on the image in circle it get store in filepickerrefrence */}
           {imageFileUploadProgress && (
             <CircularProgressbar
               value={imageFileUploadProgress || 0}
@@ -241,6 +250,8 @@ export default function DashProfile() {
         >
           {loading ? 'Loading...' : 'Update'}
         </Button>
+
+        {/* these button of creating post is shown only if user is admin */}
         {currentUser.isAdmin && (
           <Link to={'/create-post'}>
             <Button
@@ -276,6 +287,8 @@ export default function DashProfile() {
           {error}
         </Alert>
       )}
+
+      {/* These part is related to deleting account */}
       <Modal
         show={showModal}
         onClose={() => setShowModal(false)}

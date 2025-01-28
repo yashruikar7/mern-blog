@@ -14,7 +14,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function CreatePost() {
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState(null);    //to check wether some image file is uploded or not
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
@@ -22,6 +22,7 @@ export default function CreatePost() {
 
   const navigate = useNavigate();
 
+  //
   const handleUpdloadImage = async () => {
     try {
       if (!file) {
@@ -103,9 +104,9 @@ export default function CreatePost() {
             }
           >
             <option value='uncategorized'>Select a category</option>
-            <option value='javascript'>JavaScript</option>
-            <option value='reactjs'>React.js</option>
-            <option value='nextjs'>Next.js</option>
+            <option value='travell'>Travelling</option>
+            <option value='Technology'>Technology</option>
+            <option value='Food'>Food</option>
           </Select>
         </div>
         <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
@@ -150,7 +151,7 @@ export default function CreatePost() {
           onChange={(value) => {
             setFormData({ ...formData, content: value });
           }}
-        />
+        />    
         <Button type='submit' gradientDuoTone='purpleToPink'>
           Publish
         </Button>

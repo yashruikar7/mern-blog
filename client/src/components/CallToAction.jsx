@@ -11,13 +11,14 @@ export default function CallToAction() {
                 Checkout these resources with 100 JavaScript Projects
             </p>
             <Button gradientDuoTone='purpleToPink' className='rounded-tl-xl rounded-bl-none'>
-                <a href="https://www.100jsprojects.com" target='_blank' rel='noopener noreferrer'>
+                <a href="https://github.com/yashruikar7" target='_blank' rel='noopener noreferrer'>
                     100 JavaScript Projects
                 </a>
             </Button>
         </div>
         <div className="p-7 flex-1">
-            <img src="https://bairesdev.mo.cloudinary.net/blog/2023/08/What-Is-JavaScript-Used-For.jpg" />
+            {/* <img src="https://bairesdev.mo.cloudinary.net/blog/2023/08/What-Is-JavaScript-Used-For.jpg" /> */}
+            <img src="https://imgs.search.brave.com/lmbNnfNwfCgdf-Etz9FtRDRIWJ1ikKP7cQobjZy0mxg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/ZGVsZnRzdGFjay5j/b20vaW1nL0phdmFT/Y3JpcHQvZGlzcGxh/eS1pbWFnZS53ZWJw" />
         </div>
     </div>
   )

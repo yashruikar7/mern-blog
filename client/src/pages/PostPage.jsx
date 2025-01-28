@@ -13,6 +13,7 @@ export default function PostPage() {
   const [recentPosts, setRecentPosts] = useState(null);
 
   useEffect(() => {
+    
     const fetchPost = async () => {
       try {
         setLoading(true);

@@ -10,8 +10,11 @@ import path from 'path';
 
 dotenv.config();
 
+// mongodb+srv://yash:yash@500599@mern-blog.ign7jfi.mongodb.net/mern-blog?retryWrites=true&w=majority&appName=mern-blog
+
 mongoose
-  .connect(process.env.MONGO)
+  // .connect(process.env.MONGO)
+  .connect('mongodb+srv://yashruikar77:yashruikar77@mern-blog.llh2o9p.mongodb.net/mernBlog?retryWrites=true&w=majority&appName=mern-blog')
   .then(() => {
     console.log('MongoDb is connected');
   })
@@ -23,13 +26,16 @@ const __dirname = path.resolve();
 
 const app = express();
 
-app.use(express.json());
-app.use(cookieParser());
+app.use(express.json());       //Middleware to parse incoming JSON requests.
+// Without this middleware, the incoming JSON data from a request would not be automatically parsed, so the req.body would be undefined or contain the raw data in string format.
+
+app.use(cookieParser());      //to get cookie
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000!');
 });
 
+//here all the url request are passesd by userroutes to diffrent file
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);

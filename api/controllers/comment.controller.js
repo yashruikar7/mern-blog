@@ -46,7 +46,7 @@ export const likeComment = async (req, res, next) => {
       comment.likes.push(req.user.id);
     } else {
       comment.numberOfLikes -= 1;
-      comment.likes.splice(userIndex, 1);
+      comment.likes.splice(userIndex, 1);   //to remove like we use splice 1 indicates remove
     }
     await comment.save();
     res.status(200).json(comment);

@@ -23,10 +23,10 @@ const userSchema = new mongoose.Schema(
     },
     isAdmin: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true }     //in order to get time of new user creation and updation
 );
 
 const User = mongoose.model('User', userSchema);

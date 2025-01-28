@@ -1,5 +1,5 @@
 import User from '../models/user.model.js';
-import bcryptjs from 'bcryptjs';
+import bcryptjs from 'bcryptjs';                     //to hide password in db
 import { errorHandler } from '../utils/error.js';
 import jwt from 'jsonwebtoken';
 
@@ -14,10 +14,10 @@ export const signup = async (req, res, next) => {
     email === '' ||
     password === ''
   ) {
-    next(errorHandler(400, 'All fields are required'));
+    next(errorHandler(400, 'All fields are required'));         //here we are passing the statuscode and msg if error occurs to errorhandler
   }
 
-  const hashedPassword = bcryptjs.hashSync(password, 10);
+  const hashedPassword = bcryptjs.hashSync(password, 10);      //here we take orignal password and perform 10 combination on it
 
   const newUser = new User({
     username,
@@ -45,17 +45,27 @@ export const signin = async (req, res, next) => {
     if (!validUser) {
       return next(errorHandler(404, 'User not found'));
     }
+
+  //   Compares the provided password with the hashed password stored in the database using bcryptjs.compareSync.
+  // If the password is invalid, it calls the errorHandler middleware with a 400 status code and an appropriate message.
+
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) {
       return next(errorHandler(400, 'Invalid password'));
     }
     const token = jwt.sign(
       { id: validUser._id, isAdmin: validUser.isAdmin },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET                                     //secret key is unique for us and we need to share it with others
     );
+    //jwt.sign creates new token/cookie which is required for authentication when we do login
 
     const { password: pass, ...rest } = validUser._doc;
+    // Destructures the user document to exclude the password from the response data.
+   
+    // The httpOnly flag ensures the cookie is only accessible by the web server, 
+    // httpOnly: true: This flag makes the cookie inaccessible to JavaScript running in the browser.
 
+    //cookie:it is an small file which contain token and transfer from server to web browser
     res
       .status(200)
       .cookie('access_token', token, {
@@ -83,7 +93,9 @@ export const google = async (req, res, next) => {
           httpOnly: true,
         })
         .json(rest);
-    } else {
+    }
+    //if the person email is not found then we are going to create new pass,username and after that new cookie
+     else {
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);

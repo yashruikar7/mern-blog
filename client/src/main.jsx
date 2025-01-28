@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import ThemeProvider from './components/ThemeProvider.jsx';
 
+// PersistGate: A component that delays the rendering of your app’s UI until the persisted state has been retrieved and saved to Redux.
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <PersistGate persistor={persistor}>
     <Provider store={store}>

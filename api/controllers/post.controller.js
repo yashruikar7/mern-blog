@@ -26,6 +26,23 @@ export const create = async (req, res, next) => {
   }
 };
 
+
+// The function getposts is an asynchronous Express.js route handler designed to retrieve posts from a MongoDB database based on various query parameters. It also provides pagination, sorting, and some statistics about the posts. 
+
+// startIndex: Determines the starting point for pagination. Default is 0 if not provided.
+// limit: Limits the number of posts returned. Default is 9 if not provided.
+// sortDirection: Determines the sorting order of the posts based on the order query parameter. 1 for ascending and -1 for descending order. Default is descending (-1).
+
+// This dynamic object uses the spread operator ... to conditionally include properties based on the presence of query parameters:
+// userId: Filters posts by a specific user ID.
+// category: Filters posts by a specific category.
+// slug: Filters posts by a specific slug.
+// postId: Filters posts by a specific post ID.
+// searchTerm: Searches for posts whose title or content matches the search term, case-insensitive ($options: 'i').
+
+// now and oneMonthAgo calculate the current date and the date one month prior.
+// Counts the number of posts created in the last month by using the createdAt field.
+
 export const getposts = async (req, res, next) => {
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
@@ -48,7 +65,7 @@ export const getposts = async (req, res, next) => {
       .limit(limit);
 
     const totalPosts = await Post.countDocuments();
-
+    
     const now = new Date();
 
     const oneMonthAgo = new Date(

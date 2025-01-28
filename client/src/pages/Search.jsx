@@ -55,6 +55,8 @@ export default function Search() {
     fetchPosts();
   }, [location.search]);
 
+
+  //if we change any filter here we are setting its value
   const handleChange = (e) => {
     if (e.target.id === 'searchTerm') {
       setSidebarData({ ...sidebarData, searchTerm: e.target.value });
@@ -69,6 +71,7 @@ export default function Search() {
     }
   };
 
+  //whatever filters we apply it must apperar in url after submiting form
   const handleSubmit = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(location.search);

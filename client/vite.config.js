@@ -13,3 +13,7 @@ export default defineConfig({
   },
   plugins: [react()],
 });
+
+
+// Proxies are used to redirect API calls from your frontend development server to another server, 
+// This means any request to /api on your frontend development server will be forwarded to http://localhost:3000/api.

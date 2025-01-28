@@ -8,10 +8,17 @@ import DashComments from '../components/DashComments';
 import DashboardComp from '../components/DashboardComp';
 
 export default function Dashboard() {
+
+  // useLocation returns the location object that represents the current URL. This object will be updated whenever the URL changes.
   const location = useLocation();
   const [tab, setTab] = useState('');
   useEffect(() => {
+
+    // URLSearchParams is a built-in JavaScript object that provides methods to work with the query string of a URL.
     const urlParams = new URLSearchParams(location.search);
+
+    // urlParams.get('tab') extracts the value associated with the key tab from the query string. If the URL is http:example.com?tab=home, tabFromUrl will be 'home'.
+
     const tabFromUrl = urlParams.get('tab');
     if (tabFromUrl) {
       setTab(tabFromUrl);
